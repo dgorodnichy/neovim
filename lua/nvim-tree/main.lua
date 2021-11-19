@@ -59,5 +59,3 @@ require'nvim-tree'.setup {
   }
 }
 
-vim.api.nvim_set_keymap('n', '<leader><Space>', ':set hlsearch!<CR>', { noremap = true, silent = true })
-

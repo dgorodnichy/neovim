@@ -15,17 +15,17 @@ Plug 'terrortylor/nvim-comment'
 
 vim.call('plug#end')
 
-local cmd = vim.cmd      	-- execute Vim commands
-local exec = vim.api.nvim_exec 	-- execute Vimscript
-local fn = vim.fn      		-- call Vim functions
-local g = vim.g        		-- global variables
-local opt = vim.opt    		-- global/buffer/windows-scoped options
-
 require ('nvim-tree/main')
 require ('lualine/main')
 require ('lsp/main')
 require ('treesitter/main')
 require ('telescope/main')
+
+local cmd = vim.cmd      	-- execute Vim commands
+local exec = vim.api.nvim_exec 	-- execute Vimscript
+local fn = vim.fn      		-- call Vim functions
+local g = vim.g        		-- global variables
+local opt = vim.opt    		-- global/buffer/windows-scoped options
 
 -----------------------------------------------------------
 -- General
@@ -46,6 +46,7 @@ opt.splitbelow = true         -- orizontal split to the bottom
 opt.ignorecase = true         -- ignore case letters when search
 opt.smartcase = true          -- ignore lowercase for the whole pattern
 opt.linebreak = true          -- wrap on word boundary
+opt.whichwrap = "<,>,[,],h,l"
 
 -----------------------------------------------------------
 -- Memory, CPU
@@ -60,6 +61,7 @@ opt.synmaxcol = 240       -- max column for syntax highlight
 -----------------------------------------------------------
 opt.termguicolors = true      -- enable 24-bit RGB colors
 vim.g.colorscheme = 'onedark'
+require('onedark').setup()
 
 -----------------------------------------------------------
 -- Autocompletion
@@ -85,11 +87,9 @@ vim.api.nvim_set_keymap('n', '<C-Up>', ':m .-2<CR>', default_opts)
 vim.api.nvim_set_keymap('v', '<C-Down>', ":m '>+1<CR>gv", default_opts)
 vim.api.nvim_set_keymap('v', '<C-Up>', ":m '<-2<CR>gv", default_opts)
 
+vim.cmd('command W w')
 
-
-require('onedark').setup()
 require('nvim_comment').setup({comment_empty = false})
 
 vim.o.updatetime = 250
 vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_line_diagnostics({focusable=false})]]
-
