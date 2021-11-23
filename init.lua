@@ -12,6 +12,8 @@ Plug 'williamboman/nvim-lsp-installer'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'terrortylor/nvim-comment'
+Plug 'neovim/nvim-lspconfig'
+Plug 'axelf4/vim-strip-trailing-whitespace'
 
 vim.call('plug#end')
 
@@ -20,6 +22,7 @@ require ('lualine/main')
 require ('lsp/main')
 require ('treesitter/main')
 require ('telescope/main')
+require ('bindings/main')
 
 local cmd = vim.cmd      	-- execute Vim commands
 local exec = vim.api.nvim_exec 	-- execute Vimscript
@@ -69,27 +72,6 @@ require('onedark').setup()
 -- insert mode completion options
 opt.completeopt = 'menuone,noselect'
 
-
--- BINDINGS
-local default_opts = { noremap = true, silent = true }
-vim.api.nvim_set_keymap('', '<F1>', '<nop>', default_opts)
-vim.api.nvim_set_keymap('', '<F1>', ':Telescope buffers<CR>', default_opts)
-vim.api.nvim_set_keymap('', '<Q>', '<nop>', default_opts)
-vim.api.nvim_set_keymap('', '<F2>', ':NvimTreeToggle<CR>', default_opts)
-vim.api.nvim_set_keymap('', '<leader><F2>', ':NvimTreeFindFileToggle<CR>', default_opts)
-vim.api.nvim_set_keymap('n', '<tab>', '<C-W>w', default_opts)
-vim.api.nvim_set_keymap('n', '<leader><CR>', ':e ~/.config/nvim/init.lua<CR>', default_opts)
-
-vim.api.nvim_set_keymap('i', '<C-Down>', '<Esc>:m .+1<CR>', default_opts)
-vim.api.nvim_set_keymap('i', '<C-Up>', '<Esc>:m .-2<CR>', default_opts)
-vim.api.nvim_set_keymap('n', '<C-Down>', ':m .+1<CR>', default_opts)
-vim.api.nvim_set_keymap('n', '<C-Up>', ':m .-2<CR>', default_opts)
-vim.api.nvim_set_keymap('v', '<C-Down>', ":m '>+1<CR>gv", default_opts)
-vim.api.nvim_set_keymap('v', '<C-Up>', ":m '<-2<CR>gv", default_opts)
-
-vim.cmd('command W w')
+-- vim.cmd('command W w')
 
 require('nvim_comment').setup({comment_empty = false})
-
-vim.o.updatetime = 250
-vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_line_diagnostics({focusable=false})]]
