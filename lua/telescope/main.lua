@@ -17,3 +17,4 @@ local default_opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap('n', '<C-p>', ':Telescope find_files<CR>', default_opts)
 vim.api.nvim_set_keymap('n', '<F1>', ':Telescope buffers<CR>', default_opts)
 vim.api.nvim_set_keymap('v', '<C-f>', 'y<ESC>:Telescope live_grep default_text=<c-r>0<CR>', default_opts)
+vim.api.nvim_set_keymap('n', '<C-f>', ':Telescope live_grep<CR>', default_opts)

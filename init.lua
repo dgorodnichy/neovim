@@ -14,6 +14,9 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'terrortylor/nvim-comment'
 Plug 'neovim/nvim-lspconfig'
 Plug 'axelf4/vim-strip-trailing-whitespace'
+Plug 'windwp/nvim-autopairs'
+Plug 'f-person/git-blame.nvim'
+Plug 'MaxMEllon/vim-jsx-pretty'
 
 vim.call('plug#end')
 
@@ -23,12 +26,14 @@ require ('lsp/main')
 require ('treesitter/main')
 require ('telescope/main')
 require ('bindings/main')
+require ('autopairs/main')
 
 local cmd = vim.cmd      	-- execute Vim commands
 local exec = vim.api.nvim_exec 	-- execute Vimscript
 local fn = vim.fn      		-- call Vim functions
 local g = vim.g        		-- global variables
 local opt = vim.opt    		-- global/buffer/windows-scoped options
+local o = vim.o
 
 -----------------------------------------------------------
 -- General
@@ -36,6 +41,9 @@ local opt = vim.opt    		-- global/buffer/windows-scoped options
 opt.mouse = 'a'               -- enable mouse support
 opt.clipboard = 'unnamedplus' -- copy/paste to system clipboard
 opt.swapfile = false          -- don't use swapfile
+opt.shiftwidth = 2            -- shift 4 spaces when tab
+opt.tabstop = 2               -- 1 tab == 4 spaces
+opt.expandtab = true
 
 -----------------------------------------------------------
 -- Neovim UI
@@ -50,6 +58,8 @@ opt.ignorecase = true         -- ignore case letters when search
 opt.smartcase = true          -- ignore lowercase for the whole pattern
 opt.linebreak = true          -- wrap on word boundary
 opt.whichwrap = "<,>,[,],h,l"
+o.scrolljump = 1
+o.scrolloff = 5
 
 -----------------------------------------------------------
 -- Memory, CPU
@@ -63,7 +73,8 @@ opt.synmaxcol = 240       -- max column for syntax highlight
 -- Colorscheme
 -----------------------------------------------------------
 opt.termguicolors = true      -- enable 24-bit RGB colors
-vim.g.colorscheme = 'onedark'
+vim.cmd('colorscheme onedark')
+-- vim.g.colorscheme = 'onedark'
 require('onedark').setup()
 
 -----------------------------------------------------------
@@ -72,6 +83,6 @@ require('onedark').setup()
 -- insert mode completion options
 opt.completeopt = 'menuone,noselect'
 
--- vim.cmd('command W w')
-
 require('nvim_comment').setup({comment_empty = false})
+
+-- command BufOnly silent! execute "%bd|e#|bd#"
